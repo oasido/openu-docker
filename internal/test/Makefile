@@ -1,14 +1,15 @@
-# If you're using GCC 5.4, you would need to use `gcc` directly
+# If you're using a newer GCC version and installed the dependencies commented in the Dockerfile:
+# Compile for ARM chips using `aarch64-linux-gnu-gcc`
+# Compile for x86_64 chips using `x86_64-linux-gnu-gcc`
+#
+# If you're using `gcc` "as is", your program would compile for your own chip only.
 
-all: test-arm test-intel
+all: test
 
-test-arm:
-	aarch64-linux-gnu-gcc -g -ansi -pedantic -Wall test.c -o test-arm
-
-test-intel:
-	x86_64-linux-gnu-gcc -g -ansi -pedantic -Wall test.c -o test-intel
+test:
+	gcc -g -ansi -pedantic -Wall test.c -o test
 
 clean:
-	rm -f test-arm test-intel
+	rm -f test
 
 .PHONY: all clean
