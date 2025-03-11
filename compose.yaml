@@ -1,0 +1,10 @@
+services:
+  ubuntu:
+    container_name: openu
+    build:
+      context: .
+    volumes:
+      - ./internal:/root
+    restart: on-failure
+    command: ["sleep","infinity"]
+
