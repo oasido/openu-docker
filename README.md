@@ -34,10 +34,10 @@ gcc -g -ansi -pedantic -Wall test.c -o test
 ```
 
 ## Notes
-- The container’s named `openu` and uses GCC 14.2.0 by default. _The uni uses 5.4_, you can change that in the Dockerfile. If you do decide to use the older version though - Note that installing packages through `apk` might not work (old repo URLs), so comment that command (again - see the Dockerfile).
+- The container’s named `openu` and uses GCC an older version (5.4) that the Uni uses by default. You can change that in the Dockerfile. If you do decide to use an older version though - Note that installing packages through `apt` might not work (old repo URLs), so make sure the RUN directive for installing is commented.
 - Your `internal` folder maps to `/root` inside the container.
 - Timezone’s set to Jerusalem.
-- Check `gcc --version` inside to confirm it’s the version you want.
+- Check `gcc --version` inside to confirm it’s the version _you want_.
 - If you mess up, check the Docker docs/just rebuild the container with
 ```bash
 docker compose up --build --force-recreate -d
