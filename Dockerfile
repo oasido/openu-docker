@@ -1,20 +1,32 @@
-# FROM gcc:14.2.0-bookworm
+# FROM i386/ubuntu:16.04
+FROM ubuntu:16.04
 
-# For GCC 5.4 (the version OpenU uses) uncomment the following:
-FROM gcc:5.4
+RUN apt-get update && \
+    apt-get install -y tmux vim && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Comment this if you're using 5.4
-# RUN apt-get update && \
-#     apt-get install -y \
-#     vim \
-#     tmux \
-#     gcc-aarch64-linux-gnu \
-#     gcc-x86-64-linux-gnu \
-#     && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    # echo "deb http://archive.ubuntu.com/ubuntu/ xenial universe" >> /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get install -y \
+    tmux \
+    vim \
+    man \
+    gcc \
+    gdb \
+    cmake \
+    g++ \
+    libc6-dev \
+    libc6-dev-i386 \
+    gcc-5-aarch64-linux-gnu \
+    gcc-aarch64-linux-gnu \
+    && apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Jerusalem /etc/localtime && \
     echo "Asia/Jerusalem" > /etc/timezone
 
 WORKDIR /root
 
-CMD ["/bin/env bash"]
+CMD ["/bin/env", "bash", "-i"]
