@@ -27,6 +27,8 @@ RUN useradd -m "${USERNAME}" && \
     echo "${USERNAME}:${PASSWORD}" | chpasswd && \
     usermod -aG sudo "${USERNAME}"
 
+RUN echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME}
+
 RUN chown -R "${USERNAME}" "/home/${USERNAME}"
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Jerusalem /etc/localtime && \
