@@ -9,7 +9,7 @@ services:
     environment:
       - USERNAME=${USERNAME}
     volumes:
-      - ./internal:/home/${USERNAME}
+      - ./internal/${USERNAME}:/home/${USERNAME}
     restart: on-failure
     command: ["sleep","infinity"]
 

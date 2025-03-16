@@ -27,13 +27,15 @@ RUN useradd -m "${USERNAME}" && \
     echo "${USERNAME}:${PASSWORD}" | chpasswd && \
     usermod -aG sudo "${USERNAME}"
 
+RUN chown -R "${USERNAME}" "/home/${USERNAME}"
+
 RUN ln -sf /usr/share/zoneinfo/Asia/Jerusalem /etc/localtime && \
     echo "Asia/Jerusalem" > /etc/timezone
 
-SHELL ["/bin/bash", "-c"]
-
-
 USER "${USERNAME}"
+
 WORKDIR /home/"${USERNAME}"
+
+SHELL ["/bin/bash", "-c"]
 
 CMD ["/bin/env", "bash", "-i"]
