@@ -1,5 +1,4 @@
-# FROM i386/ubuntu:16.04
-FROM ubuntu:16.04
+FROM i386/ubuntu:16.04
 
 RUN apt-get update && \
     apt-get install -y tmux vim && \
@@ -7,9 +6,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && \
-    # echo "deb http://archive.ubuntu.com/ubuntu/ xenial universe" >> /etc/apt/sources.list && \
-    apt-get update && \
     apt-get install -y \
+    sudo \
     tmux \
     vim \
     man \
@@ -17,16 +15,25 @@ RUN apt-get update && \
     gdb \
     cmake \
     g++ \
-    libc6-dev \
-    libc6-dev-i386 \
-    gcc-5-aarch64-linux-gnu \
-    gcc-aarch64-linux-gnu \
+    gcc-multilib \
+    build-essential \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+ARG USERNAME
+ARG PASSWORD
+
+RUN useradd -m "${USERNAME}" && \
+    echo "${USERNAME}:${PASSWORD}" | chpasswd && \
+    usermod -aG sudo "${USERNAME}"
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Jerusalem /etc/localtime && \
     echo "Asia/Jerusalem" > /etc/timezone
 
-WORKDIR /root
+SHELL ["/bin/bash", "-c"]
+
+
+USER "${USERNAME}"
+WORKDIR /home/"${USERNAME}"
 
 CMD ["/bin/env", "bash", "-i"]

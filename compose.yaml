@@ -3,8 +3,13 @@ services:
     container_name: openu
     build:
       context: .
+      args:
+        - USERNAME=${USERNAME}
+        - PASSWORD=${PASSWORD}
+    environment:
+      - USERNAME=${USERNAME}
     volumes:
-      - ./internal:/root
+      - ./internal:/home/${USERNAME}
     restart: on-failure
     command: ["sleep","infinity"]
 
