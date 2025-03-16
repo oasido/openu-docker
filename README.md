@@ -12,6 +12,10 @@ If you don't want/can't install VMWare Player & just want to GCC with Docker.
 ## Start the Container
 - Clone this repo
 - Put your `C` files in the `internal` folder in the repo.
+- __(Optional):__ Alter the `.env` file in the repo’s root directory with:
+  ```ini
+  USERNAME=your_username
+  PASSWORD=your_password
 - Open a terminal in the repo directory and run:
 
 ```bash
@@ -35,7 +39,7 @@ gcc -g -ansi -pedantic -Wall test.c -o test
 
 ## Notes
 - The container’s named `openu` and uses GCC an older version (5.4) that the Uni uses by default. You can change that in the Dockerfile. If you do decide to use an older version though - Note that installing packages through `apt` might not work (old repo URLs), so make sure the RUN directive for installing is commented.
-- Your `internal` folder maps to `/root` inside the container.
+- Your `internal/${USERNAME}` folder maps to `/home/${USERNAME}` inside the container.
 - Timezone’s set to Jerusalem.
 - Check `gcc --version` inside to confirm it’s the version _you want_.
 - If you mess up, check the Docker docs/just rebuild the container with
@@ -47,3 +51,5 @@ docker compose up --build --force-recreate -d
 docker compose down
 ```
 (I'd recommend you check out Docker/Podman if you're unfamiliar with it)
+
+Thanks to [KfearO](https://github.com/KfearO) for pointing out Ubuntu/dev env versioning!
