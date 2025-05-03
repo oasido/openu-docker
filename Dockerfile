@@ -1,11 +1,6 @@
 FROM i386/ubuntu:16.04
 
 RUN apt-get update && \
-    apt-get install -y tmux vim && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update && \
     apt-get install -y \
     sudo \
     tmux \
